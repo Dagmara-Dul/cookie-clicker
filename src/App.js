@@ -1,8 +1,10 @@
 import React from "react";
 import "./styles.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Navbar from "../components/Navbar/Navbar.js";
-import HomeView from "../views/HomeView/HomeView.js";
+import Navbar from './components/Navbar/Navbar';
+import HomeView from './views/HomeView/HomeView';
+import AchievementsView from './views/AchievementsView/AchievementsView';
+import ShopView from './views/ShopView/ShopView';
 
 // export default function App() {
 //   return (
@@ -19,14 +21,16 @@ import HomeView from "../views/HomeView/HomeView.js";
 export default class App extends React.Component {
   render() {
     return (
-      <>
+      
         <BrowserRouter>
           <Navbar />
           <Switch>
-            <Route exact path="/" component={HomeView} />
+            <Route exact path={["/home", "/"]} component={ HomeView } />
+            <Route exact path="/achievements" component={ AchievementsView } />
+            <Route exact path="/shop" component={ ShopView } />
           </Switch>
         </BrowserRouter>
-      </>
+      
     );
   }
 }

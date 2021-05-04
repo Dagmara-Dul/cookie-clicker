@@ -1,7 +1,7 @@
 export default function Shop() {
   return (
     <div className="App">
-      <h1>This is shop view</h1>
+      <h1>Dostępne wkrótce :)</h1>
     </div>
   );
 }
