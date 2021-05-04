@@ -17,6 +17,7 @@ export default class Home extends React.Component {
     nextLevelScore: 10,
   }
 
+
   handleLevelFn = () => {
     let nextLevelScore = this.state.nextLevelScore;
     let score = this.state.score;
@@ -40,22 +41,77 @@ export default class Home extends React.Component {
   }
 
 
+  saveScoreFn = () => {
+    const playerScore = {
+      score: this.state.score,
+      level: this.state.level,
+      nextLevelScore: this.state.nextLevelScore,
+    };
+    
+    localStorage.setItem("playerScore", JSON.stringify(playerScore))
+    alert("Saved!")
+  }
+
+  loadScoreFn = () => {
+    const retrievedPlayerScore = JSON.parse(localStorage.getItem("playerScore"))
+    if (retrievedPlayerScore){
+      this.setState({
+        score: retrievedPlayerScore.score,
+        level: retrievedPlayerScore.level,
+        nextLevelScore: retrievedPlayerScore.nextLevelScore,
+      })
+    }
+  }
+
+  componentDidMount = () => {
+    this.loadScoreFn();
+  }
+
+  // componentDidUpdate = () => {
+  //   if (shouldBlockNavigation) {
+  //     window.onbeforeunload = () => alert("halo!")
+  //   } else {
+  //     window.onbeforeunload = alert("mama")
+  //   }
+  // }
+
+  clearLocalStorageFn = () => {
+    const playerScore = {
+      score: 0,
+      level: 1,
+      nextLevelScore: 10,
+    };
+
+    localStorage.setItem("playerScore", JSON.stringify(playerScore))
+    this.loadScoreFn();
+  }
+  
+
   render() {
+    
+    // window.addEventListener("unload", function (){
+    //   alert("halo!")
+    // })
+
     return (
       <>
+      {/* { window.onbeforeunload = function(e) {
+        saveScoreFn()  
+        return "please"
+      }
+      } */}
+    
         <div className="App">
           <h1>Hello CodeSandbox</h1>
           <h2>Start editing to see some magic happen!</h2>
           <ScoreCounters pointScore={this.state.score} level={this.state.level}></ScoreCounters>
-          {/* <div>
-            <span>{this.state.score}</span>
-            <span>{this.state.level}</span>
-          </div> */}
-          
-          {/* <button onClick={this.handleClickFn}>
-            click
-          </button> */}
           <CookieBtn handleClickFn={this.handleClickFn}>Cookie</CookieBtn>
+          <button onClick={this.saveScoreFn}>
+            save
+          </button>
+          <button onClick={this.clearLocalStorageFn}>
+            restart
+          </button>
         </div>
       </>
     );
