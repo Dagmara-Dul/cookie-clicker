@@ -1,14 +1,7 @@
 import React from "react";
-import styled from 'styled-components';
 import CookieBtn from '../../components/CookieBtn/CookieBtn'
 import ScoreCounters from '../../components/ScoreCounters/ScoreCounters'
 
-// const SpanBtn = styled.span`
-//   background: url('../../media/cookie.png') !important;
-//   background-size:cover;
-//   width:100px;
-//   height:100px;
-// `
 
 export default class Home extends React.Component {
   state = {
@@ -87,6 +80,17 @@ export default class Home extends React.Component {
   }
   
 
+  sendScoreFn = () => {
+    console.log("cookie wizard says hello")
+    const obj = {
+
+    }
+    fetch('...', {
+      method: 'POST',
+      body: JSON.stringify(obj)
+    })
+  }
+
   render() {
     
     // window.addEventListener("unload", function (){
@@ -102,8 +106,8 @@ export default class Home extends React.Component {
       } */}
     
         <div className="App">
-          <h1>Hello CodeSandbox</h1>
-          <h2>Start editing to see some magic happen!</h2>
+          <h1>CookieClicker</h1>
+          <h2>Start clicking now, and watch your brain getting smaller!</h2>
           <ScoreCounters pointScore={this.state.score} level={this.state.level}></ScoreCounters>
           <CookieBtn handleClickFn={this.handleClickFn}>Cookie</CookieBtn>
           <button onClick={this.saveScoreFn}>
@@ -111,6 +115,9 @@ export default class Home extends React.Component {
           </button>
           <button onClick={this.clearLocalStorageFn}>
             restart
+          </button>
+          <button onClick={this.sendScoreFn}>
+            sendyour score to cookie wizard
           </button>
         </div>
       </>
