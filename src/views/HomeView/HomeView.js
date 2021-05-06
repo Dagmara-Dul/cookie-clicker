@@ -1,6 +1,20 @@
 import React from "react";
-import CookieBtn from '../../components/CookieBtn/CookieBtn'
-import ScoreCounters from '../../components/ScoreCounters/ScoreCounters'
+import CookieBtn from '../../components/CookieBtn/CookieBtn';
+import ScoreCounters from '../../components/ScoreCounters/ScoreCounters';
+import Button from '../../components/Button/Button';
+import { WizardButton } from '../../components/Button/Button';
+import { ButtonContainer } from '../../components/Button/Button';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  text-align:center;
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  max-width: 1024px;
+  margin: 200px auto;
+  padding: 30px 40px;
+  `;
 
 
 export default class Home extends React.Component {
@@ -35,6 +49,7 @@ export default class Home extends React.Component {
 
 
   saveScoreFn = () => {
+    
     const playerScore = {
       score: this.state.score,
       level: this.state.level,
@@ -60,13 +75,6 @@ export default class Home extends React.Component {
     this.loadScoreFn();
   }
 
-  // componentDidUpdate = () => {
-  //   if (shouldBlockNavigation) {
-  //     window.onbeforeunload = () => alert("halo!")
-  //   } else {
-  //     window.onbeforeunload = alert("mama")
-  //   }
-  // }
 
   clearLocalStorageFn = () => {
     const playerScore = {
@@ -83,43 +91,33 @@ export default class Home extends React.Component {
   sendScoreFn = () => {
     console.log("cookie wizard says hello")
     const obj = {
-
+      score: this.state.score,
+      level: this.state.level,
+      nextLevelScore: this.state.nextLevelScore,
     }
-    fetch('...', {
+    fetch('link', {
       method: 'POST',
       body: JSON.stringify(obj)
     })
   }
 
+  
+
   render() {
-    
-    // window.addEventListener("unload", function (){
-    //   alert("halo!")
-    // })
 
     return (
       <>
-      {/* { window.onbeforeunload = function(e) {
-        saveScoreFn()  
-        return "please"
-      }
-      } */}
-    
-        <div className="App">
+        <Container>
           <h1>CookieClicker</h1>
           <h2>Start clicking now, and watch your brain getting smaller!</h2>
           <ScoreCounters pointScore={this.state.score} level={this.state.level}></ScoreCounters>
           <CookieBtn handleClickFn={this.handleClickFn}>Cookie</CookieBtn>
-          <button onClick={this.saveScoreFn}>
-            save
-          </button>
-          <button onClick={this.clearLocalStorageFn}>
-            restart
-          </button>
-          <button onClick={this.sendScoreFn}>
-            sendyour score to cookie wizard
-          </button>
-        </div>
+          <ButtonContainer>
+            <Button onClickFn={this.saveScoreFn}>Save</Button>
+            <Button onClickFn={this.clearLocalStorageFn}>Restart</Button>
+          </ButtonContainer>
+          <WizardButton  onClickFn={this.sendScoreFn}>send score to cookie wizard</WizardButton>
+        </Container>
       </>
     );
   }

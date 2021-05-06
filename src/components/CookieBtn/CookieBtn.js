@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 
-const Button = styled.button`
-  width:100px;
-  height:100px;
+const CButton = styled.button`
+  width:200px;
+  height:200px;
   border-radius: 50%;
   color:black;
   border:none;
@@ -22,9 +22,9 @@ const Button = styled.button`
 const CookieBtn = ( {handleClickFn} ) => {
 
     return(
-        <Button onClick={handleClickFn}>
+        <CButton onClick={handleClickFn}>
             
-        </Button>
+        </CButton>
     )
 }
 
